@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				padding: 0;
+				margin: 0;
+			}
+			.wrap{
+				width: 800px;
+				height: 500px;
+				border: 5px solid orangered;
+				margin: 20px 0 0 50px;
+				position: relative;
+			}
+			.wrap>li{
+				list-style: none;
+				width: 10px;height: 10px;
+				position: absolute;
+			}
+			button{
+				width: 50px;height: 50px;
+				font: 40px/52px bold;
+				text-align: center;
+				outline: none;
+				background-color: transparent;
+			}
+			.lbtn{
+				margin-left: 50px;
+				margin-top: 4px;
+			}
+			.ubtn{
+				margin-left: 104px;
+			}
+			.btns{
+				margin-left: 810px;
+				margin-top: -400px;
+			}
+			.ele1{
+				background-color:grey;
+				/*left: 20px;*/
+			}
+			.ele2{
+				background-color:darkgrey;
+				/*left: 10px;*/
+			}
+			.ele3{
+				background-color:lightgrey;
+				
+			}
+			.start{
+				width: 810px;
+				height: 40px;
+				margin-left: 50px;
+				margin-top: 20px;
+			}
+			span{
+				margin-left: 20px;
+				text-align: center;
+				font-size: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<button class="start">-START-</button><span>Score:</span><span>0</span>
+		<div class="wrap">
+			<li class="ele1"></li>
+			<li class="ele2"></li>
+			<li class="ele3"></li>
+		</div>
+		
+		<div class="btns">
+			<button class="ubtn">⬆️</button><br />
+			<button class="lbtn">⬅️</button>
+			<button class="bbtn">⬇️</button>
+			<button class="rbtn">➡️</button>
+		</div>
+		
+		
+	</body>
+	<script type="text/javascript">
+		var wrap = document.querySelector(".wrap");
+		var start = document.querySelector(".start");
+		var btnup = document.querySelector(".ubtn");
+		var btndown = document.querySelector(".bbtn");
+		var btnleft = document.querySelector(".lbtn");
+		var btnright = document.querySelector(".rbtn");
+		var dots = document.getElementsByTagName("li");
+		var span = document.getElementsByTagName("span");
+		var score = 0;
+		
+		
+			dots[0].style.left = 20 + "px";
+			dots[1].style.left = 10 + "px";
+			dots[2].style.left = 00 + "px";
+			dots[0].style.top = 0 + "px";
+			dots[1].style.top = 0 + "px";
+			dots[2].style.top = 0 + "px";
+			
+		var u = false;
+		var d = false;
+		var l = false;
+		var r = true;
+		var timer1 ;
+		var reverseUD = 0,reverseLR = 1;
+		var newele;
+		
+		start.onclick = function(){
+			creatfood();
+			test();
+			clearInterval(timer1);
+			
+		timer1= setInterval(function(){
+			if(u){
+				for(var i=dots.length-1;i>0;i--){
+					dots[i].style.left = dots[i-1].style.left;
+					dots[i].style.top = dots[i-1].style.top;
+				}
+				dots[0].style.left = parseInt(dots[0].style.left)+reverseLR*10 +"px";
+				dots[0].style.top = parseInt(dots[0].style.top)+reverseUD*10 +"px";
+			}
+			if(d){
+				for(var i=dots.length-1;i>0;i--){
+					dots[i].style.left = dots[i-1].style.left;
+					dots[i].style.top = dots[i-1].style.top;
+				}
+				dots[0].style.left = parseInt(dots[0].style.left)+reverseLR*10 +"px";
+				dots[0].style.top = parseInt(dots[0].style.top)+reverseUD*10 +"px";
+			}
+			if(l){
+				
+				for(var i=dots.length-1;i>0;i--){
+					dots[i].style.left = dots[i-1].style.left;
+					dots[i].style.top = dots[i-1].style.top;
+				}
+				dots[0].style.left = parseInt(dots[0].style.left)+reverseLR*10 +"px";
+				dots[0].style.top = parseInt(dots[0].style.top)+reverseUD*10 +"px";
+			}
+			if(r){
+				for(var i=dots.length-1;i>0;i--){
+					dots[i].style.left = dots[i-1].style.left;
+					dots[i].style.top = dots[i-1].style.top;
+				}
+				dots[0].style.left = parseInt(dots[0].style.left)+reverseLR*10 +"px";
+				dots[0].style.top = parseInt(dots[0].style.top)+reverseUD*10 +"px";
+			}
+			btnup.onclick = function(){
+				if(u||d){return;}
+				else{
+					reverseLR = 0;
+					reverseUD = -1;
+					u = true;
+					d = false;
+					l = false;
+					r = false;
+				}
+			}
+			btndown.onclick = function(){
+				if(u||d){return;}
+				else{
+					reverseLR = 0;
+					reverseUD = 1;
+					u = false;
+					d = true;
+					l = false;
+					r = false;
+				}
+			}
+			btnleft.onclick = function(){
+				if(r||l){return;}
+				else{
+					reverseLR = -1;
+					reverseUD = 0;
+					u = false;
+					d = false;
+					l = true;
+					r = false;
+				}
+			}
+			btnright.onclick = function(){
+				if(r||l){return;}
+				else{
+					reverseLR = 1;
+					reverseUD = 0;
+					u = false;
+					d = false;
+					l = false;
+					r = true;
+				}
+			}
+		},150)//timer1
+		}//start
+//——————————————————————————————————————————————————————————————		
+function creatfood(){
+	        newele = document.createElement("div");
+			newele.style.backgroundColor = "darkred";
+			newele.style.height = 10+"px";
+			newele.style.width = 10+"px";
+			newele.style.position = "absolute";
+			newele.style.left = rand(0,80)*10 + "px";
+			newele.style.top = rand(0,50)*10 + "px";
+			wrap.appendChild(newele);
+}
+		
+function test(){		
+	var testtimer = setInterval(function(){
+		//----------------碰撞检测-------------------------------
+			if(dots[0].style.top==newele.style.top&&newele.style.left==dots[0].style.left){
+			newele.remove();
+			creatfood();
+			var newsnake = document.createElement("li");
+			newsnake.style.backgroundColor = "rgb(" + rand(0,255)+","+rand(0,255)+","+rand(0,255) + ")";
+			newsnake.style.height = 10+"px";
+			newsnake.style.width = 10+"px";
+			wrap.appendChild(newsnake);
+			 score++;
+			span[1].innerText = score;
+			}
+			//————————————撞墙判定———————————————————————————————————
+			if(parseInt(dots[0].style.top)<0||parseInt(dots[0].style.top)>500||parseInt(dots[0].style.left)<0||parseInt(dots[0].style.left)>800){
+				clearInterval(testtimer);
+				clearInterval(timer1);
+				alert("---Game Over---")
+			}
+			//————————————自咬判定———————————————————————————————————
+			for(var k=1;k<dots.length;k++){
+				if(dots[0].style.top==dots[k].style.top&&dots[0].style.left==dots[k].style.left){
+					clearInterval(testtimer);
+					clearInterval(timer1);
+					alert("---咬到自己啦！---")
+				}
+			}
+	},10)			
+}		
+		
+function rand(min,max){
+	return Math.floor(Math.random()*(max-min)+min)
+}	
+	</script>
+</html>
